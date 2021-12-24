@@ -7,11 +7,11 @@ var engine, world;
 var backgroundImg;
 var hour;
 
-var bg = "sunrise.png";
+var bg = "sunrise1.png";
 
 function preload() {
+    // create getBackgroundImg( ) here
     getBackgroundImg();
-    
 }
 
 function setup(){
@@ -22,41 +22,37 @@ function setup(){
 }
 
 function draw(){
+     // add condition to check if any background image is there to add
     if(backgroundImg)
-        background(backgroundImg);
+    background(backgroundImg);
 
     Engine.update(engine);
-
+    // write code to display time in correct format here
     fill("black");
     textSize(30);
-    
+
     if(hour>=12){
         text("Time : "+ hour%12 + " PM", 50,100);
-    }else if(hour==0){
-        text("Time : 12 AM",100,100);
-    }else{
+       }else if(hour==0){
+         text("Time : 12 AM",100,100);
+       }else{
         text("Time : "+ hour%12 + " AM", 50,100);
-    }
+       }
 
 }
 
 async function getBackgroundImg(){
 
     // write code to fetch time from API
-    var response = await fetch ("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
-    
- 
-    //change the  datetime = responseJSON.datetime;data in JSON format and store it in variable responseJSON
+    var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
+
+    //change the data in JSON format
     var responseJSON = await response.json();
     var datetime = responseJSON.datetime;
     
-    //fetch datetime from responseJSON
-    var datetime = responseJSON.datetime;
-    
-    // slice the datetime to extract hour
-    var hour = datetime.slice(11,13);
+    // write code slice the datetime
+    hour = datetime.slice(11,13);
 
-    
     if(hour>=0 && hour<18 ){
         bg = "sunrise.png";
     }
